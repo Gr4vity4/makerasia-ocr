@@ -76,6 +76,11 @@ app
         // console.log(">>> debug 3");
         console.log(res.data.responses[0].fullTextAnnotation.text);
         result = res.data.responses[0].fullTextAnnotation.text;
+
+        res.json({
+          status: 200,
+          message: result,
+        });
       });
 
     // axios
@@ -131,10 +136,5 @@ app
     //   });
 
     // console.log(`Message from chat : ${msg}`)
-
-    res.json({
-      status: 200,
-      message: result,
-    });
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
