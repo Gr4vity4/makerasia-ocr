@@ -11,6 +11,36 @@ const bodyParser = require("body-parser");
 const axios = require("axios");
 const fs = require("fs");
 
+function googleOCR(imgPath) {
+  const googleCredentialKey = "AIzaSyDG5ZjQBdiHDNPQVM7mKqoLXseyq0np9aw";
+
+  return axios.post(
+    `https://vision.googleapis.com/v1/images:annotate?key=${googleCredentialKey}`,
+    {
+      requests: [
+        {
+          image: {
+            source: {
+              imageUri: `https://systemtechdesign.com/${imgPath}`,
+            },
+          },
+          features: [
+            {
+              type: "DOCUMENT_TEXT_DETECTION",
+            },
+          ],
+          imageContext: {
+            languageHints: ["th"],
+          },
+        },
+      ],
+    },
+    {
+      headers: { "content-type": "application/json" },
+    }
+  );
+}
+
 app
   .use("/img", express.static(path.join(__dirname, "public")))
   .use(bodyParser.json())
@@ -24,49 +54,9 @@ app
     console.log(">>> /webhook");
     imgPath = req.query.path;
 
-    const googleCredentialKey = "AIzaSyDG5ZjQBdiHDNPQVM7mKqoLXseyq0np9aw";
-    let result = "text not found";
-
-    const ret = await axios
-      .post(
-        `https://vision.googleapis.com/v1/images:annotate?key=${googleCredentialKey}`,
-        {
-          requests: [
-            {
-              image: {
-                source: {
-                  imageUri: `https://systemtechdesign.com/${imgPath}`,
-                },
-              },
-              features: [
-                {
-                  type: "DOCUMENT_TEXT_DETECTION",
-                },
-              ],
-              imageContext: {
-                languageHints: ["th"],
-              },
-            },
-          ],
-        },
-        {
-          headers: { "content-type": "application/json" },
-        }
-      )
-      .then((res) => {
-        // console.log(res)
-        // console.log(">>> debug 1");
-        // console.log(res.data.responses[0]);
-        // console.log(">>> debug 2");
-        // console.log(res.data.responses[0].fullTextAnnotation);
-        // console.log(">>> debug 3");
-        console.log(res.data.responses[0].fullTextAnnotation.text);
-        return {
-          text: res.data.responses[0].fullTextAnnotation.text
-        };
-      });
-
-    res.json(ret);
-
+    googleOCR(imgPath).then((res) => {
+      const text = res.data.responses[0].fullTextAnnotation.text;
+      res.render(text);
+    });
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
