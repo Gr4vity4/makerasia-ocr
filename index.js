@@ -56,7 +56,7 @@ app
 
     googleOCR(imgPath).then((res) => {
       const text = res.data.responses[0].fullTextAnnotation.text;
-      res.render(text);
+      res.send(text);
     });
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
