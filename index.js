@@ -55,7 +55,7 @@ app
     imgPath = req.query.path;
 
     googleOCR(imgPath).then((resData) => {
-      if (resData.data.responses[0].fullTextAnnotation.text !== undefined) {
+      if (resData.data.responses[0].fullTextAnnotation !== undefined) {
         const text = resData.data.responses[0].fullTextAnnotation.text;
         res.json({ text: text });
       } else {
