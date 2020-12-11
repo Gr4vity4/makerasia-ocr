@@ -55,8 +55,12 @@ app
     imgPath = req.query.path;
 
     googleOCR(imgPath).then((resData) => {
-      const text = resData.data.responses[0].fullTextAnnotation.text;
-      res.json({ text: text });
+      if (resData.data.responses[0].fullTextAnnotation.text !== undefined) {
+        const text = resData.data.responses[0].fullTextAnnotation.text;
+        res.json({ text: text });
+      } else {
+        res.json({ text: "not found" });
+      }
     });
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
