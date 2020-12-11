@@ -46,7 +46,7 @@ app
             {
               image: {
                 source: {
-                  imageUri: "https://systemtechdesign.com/91_1.jpg",
+                  imageUri: "https://systemtechdesign.com/test.jpg",
                 },
               },
               features: [
@@ -66,7 +66,11 @@ app
       )
       .then((res) => {
         // console.log(res)
+        console.log(">>> debug 1");
+        console.log(res.data.responses[0]);
+        console.log(">>> debug 2");
         console.log(res.data.responses[0].fullTextAnnotation);
+        console.log(">>> debug 3");
         console.log(res.data.responses[0].fullTextAnnotation.text);
       });
 
