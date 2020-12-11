@@ -39,6 +39,8 @@ app
     // const lineToken = "__Line_Token__";
     const googleCredentialKey = "AIzaSyDG5ZjQBdiHDNPQVM7mKqoLXseyq0np9aw";
 
+    let result = "text not found";
+
     axios
       .post(
         `https://vision.googleapis.com/v1/images:annotate?key=${googleCredentialKey}`,
@@ -73,7 +75,7 @@ app
         // console.log(res.data.responses[0].fullTextAnnotation);
         // console.log(">>> debug 3");
         console.log(res.data.responses[0].fullTextAnnotation.text);
-        res.send(res.data.responses[0].fullTextAnnotation.text);
+        result = res.data.responses[0].fullTextAnnotation.text;
       });
 
     // axios
@@ -132,7 +134,7 @@ app
 
     res.json({
       status: 200,
-      message: "Webhook is working!",
+      message: result,
     });
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
