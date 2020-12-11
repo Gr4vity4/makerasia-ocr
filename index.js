@@ -54,8 +54,8 @@ app
     console.log(">>> /webhook");
     imgPath = req.query.path;
 
-    googleOCR(imgPath).then((res) => {
-      const text = res.data.responses[0].fullTextAnnotation.text;
+    googleOCR(imgPath).then((resData) => {
+      const text = resData.data.responses[0].fullTextAnnotation.text;
       res.send(text);
     });
   })
