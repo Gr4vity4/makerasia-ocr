@@ -22,6 +22,7 @@ app
   .get("/", (req, res) => res.send(`Node.js running on port : ${PORT}`))
   .get("/webhook", function (req, res) {
     console.log(">>> /webhook");
+    imgPath = req.query.path;
     // const replyToken = req.body.events[0].replyToken;
     // const msg = req.body.events[0].message;
 
@@ -46,7 +47,7 @@ app
             {
               image: {
                 source: {
-                  imageUri: "https://systemtechdesign.com/test.jpg",
+                  imageUri: `https://systemtechdesign.com/${imgPath}`,
                 },
               },
               features: [
@@ -66,12 +67,13 @@ app
       )
       .then((res) => {
         // console.log(res)
-        console.log(">>> debug 1");
-        console.log(res.data.responses[0]);
-        console.log(">>> debug 2");
-        console.log(res.data.responses[0].fullTextAnnotation);
-        console.log(">>> debug 3");
+        // console.log(">>> debug 1");
+        // console.log(res.data.responses[0]);
+        // console.log(">>> debug 2");
+        // console.log(res.data.responses[0].fullTextAnnotation);
+        // console.log(">>> debug 3");
         console.log(res.data.responses[0].fullTextAnnotation.text);
+        res.send(res.data.responses[0].fullTextAnnotation.text);
       });
 
     // axios
