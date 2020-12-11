@@ -36,7 +36,7 @@ app
     // const URL = `https://api-data.line.me/v2/bot/message/${msg.id}/content`;
 
     // const lineToken = "__Line_Token__";
-    const googleCredentialKey = "AIzaSyCpz3uFpG1uSfvP9RklFzKViQ6JF6-onvg";
+    const googleCredentialKey = "AIzaSyDG5ZjQBdiHDNPQVM7mKqoLXseyq0np9aw";
 
     axios
       .post(
