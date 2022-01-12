@@ -12,7 +12,7 @@ const axios = require("axios");
 const fs = require("fs");
 
 function googleOCR(imgPath) {
-  const googleCredentialKey = "AIzaSyDG5ZjQBdiHDNPQVM7mKqoLXseyq0np9aw";
+  const googleCredentialKey = "AIzaSyBWl2CsPu_hyshHAXmGMkgbu-PBh58WDDk";
 
   return axios.post(
     `https://vision.googleapis.com/v1/images:annotate?key=${googleCredentialKey}`,
